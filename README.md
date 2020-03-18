@@ -1,5 +1,7 @@
 # Amazon Athena Query Federation with Amazon SageMaker
 
+![Overview](./assets/athena_udf_sagemaker.png)
+
 This repo is created to demonstrate how to integrate Athena User Defined Function (UDF) with Amazon SageMaker 
 
 The Amazon Athena Query Federation SDK allows you to customize Amazon Athena with your own code. This enables you to integrate with new data sources, proprietary data formats, or build in new user defined functions. Initially these customizations will be limited to the parts of a query that occur during a TableScan operation but will eventually be expanded to include other parts of the query lifecycle using the same easy to understand interface.
