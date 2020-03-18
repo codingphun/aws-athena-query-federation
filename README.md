@@ -18,7 +18,7 @@ tldr; Pre-reqs to Get Started:
 1. Deploy the application
 1. Go to the [Athena Console in us-east-1 (N. Virginia)](https://console.aws.amazon.com/athena/home) and create a workgroup called "AmazonAthenaPreviewFunctionality", any queries run from that workgroup will be able to use Preview features described in this repository.
 1. Run a query "show databases in \`lambda:<func_name>\`" where <func_name> is the name of the Lambda function you deployed in the previous steps.
-1. Go to "athena-udfs"(./athena-udfs) folder on this repo and follow instruction there to create custom Athena UDF with Amazon SageMaker
+1. Go to ["athena-udfs"](./athena-udfs) folder on this repo and follow instruction there to create custom Athena UDF with Amazon SageMaker
 
 For more information please consult:
 
