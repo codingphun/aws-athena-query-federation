@@ -1,8 +1,8 @@
 Transform: 'AWS::Serverless-2016-10-31'
 Metadata:
   'AWS::ServerlessRepo::Application':
-    Name: AthenaUserDefinedFunctions
-    Description: 'This connector enables Amazon Athena to leverage common UDFs made available via Lambda.'
+    Name: AthenaUDFandSageMaker
+    Description: 'This connector enables Amazon Athena to leverage Amazon SageMaker with UDFs made available via Lambda.'
     Author: 'default author'
     SpdxLicenseId: Apache-2.0
     LicenseUrl: LICENSE.txt
@@ -10,7 +10,7 @@ Metadata:
     Labels:
       - athena-federation
     HomePageUrl: 'https://github.com/awslabs/aws-athena-query-federation'
-    SemanticVersion: 2020.5.1
+    SemanticVersion: 0.0.2
     SourceCodeUrl: 'https://github.com/awslabs/aws-athena-query-federation'
 Parameters:
   LambdaFunctionName:
@@ -25,9 +25,6 @@ Parameters:
     Description: 'Lambda memory in MB (min 128 - 3008 max).'
     Default: 3008
     Type: Number
-  SecretNameOrPrefix:
-    Description: 'The name or prefix of a set of names within Secrets Manager that this function should have access to. (e.g. database-*).'
-    Type: String
 Resources:
   ConnectorConfig:
     Type: 'AWS::Serverless::Function'
@@ -35,14 +32,7 @@ Resources:
       FunctionName: !Ref LambdaFunctionName
       Handler: "com.amazonaws.athena.connectors.udfs.AthenaUDFHandler"
       CodeUri: "./target/athena-udfs-1.0.jar"
-      Description: "This connector enables Amazon Athena to leverage common UDFs made available via Lambda."
+      Description: "This connector enables Amazon Athena to leverage Amazon SageMaker with UDFs made available via Lambda."
       Runtime: java8
       Timeout: !Ref LambdaTimeout
       MemorySize: !Ref LambdaMemory
-      Policies:
-        - Statement:
-            - Action:
-                - secretsmanager:GetSecretValue
-              Effect: Allow
-              Resource: !Sub 'arn:aws:secretsmanager:*:*:secret:${SecretNameOrPrefix}'
-          Version: '2012-10-17'

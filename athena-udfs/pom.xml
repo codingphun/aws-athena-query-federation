@@ -15,6 +15,7 @@
     <properties>
         <slf4jVersion>1.7.30</slf4jVersion>
         <log4j2Version>2.13.0</log4j2Version>
+        <checkstyle.skip>true</checkstyle.skip>
     </properties>
 
     <dependencies>
@@ -34,6 +35,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>21.0</version>
+        </dependency>
+        <dependency>
+          <groupId>com.amazonaws</groupId>
+          <artifactId>aws-java-sdk-sagemaker</artifactId>
+          <version>1.11.747-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
