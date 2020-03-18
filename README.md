@@ -1,4 +1,6 @@
-# Amazon Athena Query Federation
+# Amazon Athena Query Federation with Amazon SageMaker
+
+This repo is created to demonstrate how to integrate Athena User Defined Function (UDF) with Amazon SageMaker 
 
 The Amazon Athena Query Federation SDK allows you to customize Amazon Athena with your own code. This enables you to integrate with new data sources, proprietary data formats, or build in new user defined functions. Initially these customizations will be limited to the parts of a query that occur during a TableScan operation but will eventually be expanded to include other parts of the query lifecycle using the same easy to understand interface.
 
@@ -16,6 +18,7 @@ tldr; Pre-reqs to Get Started:
 1. Deploy the application
 1. Go to the [Athena Console in us-east-1 (N. Virginia)](https://console.aws.amazon.com/athena/home) and create a workgroup called "AmazonAthenaPreviewFunctionality", any queries run from that workgroup will be able to use Preview features described in this repository.
 1. Run a query "show databases in \`lambda:<func_name>\`" where <func_name> is the name of the Lambda function you deployed in the previous steps.
+1. Go to "athena-udfs"(./athena-udfs) folder on this repo and follow instruction there to create custom Athena UDF with Amazon SageMaker
 
 For more information please consult:
 
