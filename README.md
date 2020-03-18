@@ -12,7 +12,7 @@ tldr; Pre-reqs to Get Started:
 1. Ensure you have the [proper permissions/policies to deploy/use Athena Federated Queries](https://docs.aws.amazon.com/athena/latest/ug/federated-query-iam-access.html)
 1. Ensure latest version of [SAM CLI is intalled](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html) (Tested with 0.45.0)
 1. Ensure [SageMaker Java SDK](https://github.com/aws/aws-sdk-java/tree/master/aws-java-sdk-sagemaker) is installed on the machine 
-1. Ensure Amazon SageMaker Java SDK is installed Maven Local repo. Add <packaging>jar</packaging> in SageMaker pom.xml will compile and add the jar file
+1. Ensure Amazon SageMaker Java SDK is added in Maven Local repo. If not, add `<packaging>jar</packaging>` in SageMaker SDK pom.xml, then compile with maven `mvn clean install`.
 1. Navigate to [Servless Application Repository](https://console.aws.amazon.com/serverlessrepo/home#/available-applications) and search for "athena-federation". Be sure to check the box to show entries that require custom IAM roles. 
 1. Look for entries published by the "Amazon Athena Federation" author.
 1. Deploy the application
