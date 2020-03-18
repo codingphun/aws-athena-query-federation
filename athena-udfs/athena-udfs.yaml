@@ -10,13 +10,17 @@ Metadata:
     Labels:
       - athena-federation
     HomePageUrl: 'https://github.com/awslabs/aws-athena-query-federation'
-    SemanticVersion: 0.0.2
+    SemanticVersion: 0.0.10
     SourceCodeUrl: 'https://github.com/awslabs/aws-athena-query-federation'
 Parameters:
   LambdaFunctionName:
     Description: 'The name you will give to Lambda function which executes your UDFs. This name must satisfy the pattern ^[a-z0-9-_]{1,64}$'
     Type: String
+    Default: 'athena-udf'
     AllowedPattern: ^[a-z0-9-_]{1,64}$
+  SageMakerRoleArn:
+    Description: 'The arn of a role that can perform SageMaker functions such as start a training job'
+    Type: String
   LambdaTimeout:
     Description: 'Maximum Lambda invocation runtime in seconds. (min 1 - 900 max)'
     Default: 900
@@ -36,3 +40,18 @@ Resources:
       Runtime: java8
       Timeout: !Ref LambdaTimeout
       MemorySize: !Ref LambdaMemory
+      Environment:
+        Variables:
+          SAGEMAKER_ROLE_ARN: !Ref SageMakerRoleArn
+      Policies:
+        - Statement:
+            - Effect: "Allow"
+              Action:
+                - "sagemaker:CreateTrainingJob"
+              Resource: "*"
+            - Effect: "Allow"
+              Action:
+                - "iam:PassRole"
+              Resource: !Ref SageMakerRoleArn
+          Version: '2012-10-17'
+      

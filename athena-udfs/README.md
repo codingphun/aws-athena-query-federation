@@ -10,9 +10,7 @@ This connector extends Amazon Athena's capability to integrate with Amazon SageM
 
 Example query:
 
-`USING FUNCTION trainxgboost(col1 VARCHAR) RETURNS VARCHAR TYPE LAMBDA_INVOKE WITH (lambda_name = '<lambda name>') SELECT trainxgboost('params');`
-
-This would return result 'hell world on the slim'.
+`USING FUNCTION trainxgboost(s3bucket VARCHAR, s3key VARCHAR, containerpath VARCHAR, instancetype VARCHAR, instancecount int, instancevolumesize int, maxdepth VARCHAR, eta VARCHAR, subsample VARCHAR, evalmetric VARCHAR, objective VARCHAR, scaleposweight VARCHAR, numround VARCHAR) RETURNS VARCHAR TYPE LAMBDA_INVOKE WITH (lambda_name = 'athena-udf') SELECT trainxgboost('my-s3bucket', 'my-train-dataset.csv', '811284229777.dkr.ecr.us-east-1.amazonaws.com','ml.c5.xlarge',1,30,'3','0.1','0.5','auc','binary:logistic','2.0','100');`
 
 
 ### Deploying The Connector

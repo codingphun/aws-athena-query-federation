@@ -19,37 +19,45 @@
  */
 package com.amazonaws.athena.connectors.udfs;
 
-import com.amazonaws.athena.connector.lambda.security.CachableSecretsManager;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
+import org.junit.Assert;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.amazonaws.services.sagemaker.AmazonSageMaker;
+import com.amazonaws.services.sagemaker.AmazonSageMakerClientBuilder;
+import com.amazonaws.services.sagemaker.model.*;
+
 public class AthenaUDFHandlerTest
 {
   
-    private AthenaUDFHandler athenaUDFHandler;
-
+    private AthenaUDFHandler m_athenaUDFHandler;
+    private CreateTrainingJobResult m_traningResult;
 
     @Before
     public void setup()
     {
-        this.athenaUDFHandler = new AthenaUDFHandler();
+        AmazonSageMaker sagemaker = mock(AmazonSageMaker.class);
+        m_athenaUDFHandler = new AthenaUDFHandler(sagemaker, "my-s3bucket", "my-train-dataset.csv", 
+            "811284229777.dkr.ecr.us-east-1.amazonaws.com", "ml.c5.xlarge", 1, 30, "3","0.1","0.5","auc","binary:logistic","2.0","100");
+        CreateTrainingJobRequest request = m_athenaUDFHandler.getTrainingJobRequest();
+        when(sagemaker.createTrainingJob(request)).thenReturn(m_traningResult);
     }
 
     @Test
     public void testSageMakerXGBoost()
     {
-        String input = "test";
-
-        String output = athenaUDFHandler.trainxgboost(input);
-        assertEquals("running on the slim", output);
-        
+        //String s3bucket, String s3key, String containerpath, String instancetype, int instancecount, int instancevolumesize, 
+        //String maxdepth, String eta, String subsample, String evalmetric, String objective, String scaleposweight, String numround)
+        Assert.assertNotNull(System.getenv("SAGEMAKER_ROLE_ARN"));
+        System.out.println("****************************************" + System.getenv("SAGEMAKER_ROLE_ARN"));
+        String output = m_athenaUDFHandler.trainxgboost("my-s3bucket", "my-train-dataset.csv", 
+            "811284229777.dkr.ecr.us-east-1.amazonaws.com", "ml.c5.xlarge", 1, 30, "3","0.1","0.5","auc","binary:logistic","2.0","100");
+        Assert.assertNotNull(output);
     }
-    
 }
